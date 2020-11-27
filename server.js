@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const pokemons = require('./pokedex-20202711.json')
+app.use(express.json())
 
 
 
@@ -27,6 +28,17 @@ app.delete('/items/:id', (req, res) => {
     res.send(pokemon)
     
 })
+
+app.post('/items', (req, res) => {
+    const pokemon = {
+      id: pokemons.length + 1,
+      name: req.body.name,
+      type: req.body.type,
+      base: req.body.base,
+    }
+    pokemons.push(pokemon);
+    res.send(pokemon);
+  });
 
 const port = process.env.PORT || 4242
 app.listen(port, () => console.log(`Server is listenig on port ${port}`))
