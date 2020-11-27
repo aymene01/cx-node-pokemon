@@ -40,5 +40,16 @@ app.post('/items', (req, res) => {
     res.send(pokemon);
   });
 
+app.put('/items/:id', (req, res) => {
+    const pokemon = pokemons.find(c => c.id == parseInt(req.params.id))
+    if(!pokemon) return res.status(404).send('The pokemon with the given id was not found')
+
+    pokemon.name = req.body.name,
+    pokemon.type = req.body.type,
+    pokemon.base = req.body.type,
+
+    res.send(pokemon)
+
+})
 const port = process.env.PORT || 4242
 app.listen(port, () => console.log(`Server is listenig on port ${port}`))
